@@ -1,5 +1,8 @@
 <!doctype html>
-<?php session_start();
+<?php 
+
+session_start();
+
 ?>
 <html lang="en">
     <head>
@@ -34,60 +37,61 @@
                 font-size: 3.5rem;
             }
         }
+        
+        #page_num {
+            margin-left : 260px;
+            margin-top : 30px;
+        }
+
+        #page_num ul li{
+            float : left;
+            margin-left : 10px;
+            text-align : center;
+        }
+        
 	    </style>
         <script>
-        //function getList(){
-            //var index = '/index.php';
+        var page = 1;
+        function paging(i){
+            page = i;
+            return page;
+        }
             $.ajax({
                 type : 'get',
-                url : '/list.php',
+                url : 'list.php?page='+page,
                 dataType : 'json',
+                data : {
+                    page : page
+                },
                 success : function(data){
-                //    $.get(index, {page:1}, function(data){
-                        $.each(data, function(i, item){
-                            $('#list').append('<tr><td align="center">'+item.id+
-                                    '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
-                                    '</a></td><td align="center">'+item.time+
-                                    '</td></tr>');
-                        });
-                //    });
-                }
-            });
-            /*
-                    $.ajax({
-                        type : 'post',
-                        url : '/page.php',
-                        dataType : 'json',
-                        success : function(data){
-                            console.log(data);
-                            //$.each(data, function(i, item){
-                                if(data.page <= 1){
-                                    $('#paging').append('<li class="disabled">first</li>');
-                                } else {
-                                    $('#paging').append('<li><a href="/index.php?page=1">first</a></li>');
-                                }
-                                for(var i = data.block_start; i <= data.block_end; i++){
-                                    if(data.page == i){
-                                        $('#paging').append('<li class="disabled">'+i+'</li>');
-                                    } else {
-                                        $('#paging').append('<li><a href="/index.php?page="'+i+'>'+i+'</a></li>');
-                                    }
-                                }
-                                if(data.block >= data.block_total){
-                                } else {
-                                    var next = data.page + 1;
-                                    $('#paging').append('<li><a href="/index.php?page=1$'+next+'">'+next+'</a></li>');
-                                }
-                                if(data.page >= data.page_total){
-                                    $('#paging').append('<li class="disabled">last</li>');
-                                } else {
-                                    $('#paging').append('<li><a href="/index.php?page="'+data.page_total+'">last</a></li>');
-                                }
-                        }
+                    $.each(data.boardData, function(list, item){
+                        $('#list').append('<tr><td align="center">'+item.id+
+                                '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
+                                '</a></td><td align="center">'+item.time+
+                                '</td></tr>');
                     });
+                    console.log(data);
+                    if(data.page <= 1){
+                        $('#paging').append('<li class="disabled">first</li>');
+                    } else {
+                        $('#paging').append('<li><a href="/index.php?page=1">first</a></li>');
+                    }
+                    for(var i = data.bstart; i <= data.bend; i++){
+                        if(data.page == i){
+                            $('#paging').append('<li class="disabled">'+i+'</li>');
+                        } else {
+                            $('#paging').append('<li><a href="/index.php?page='+i+'">'+i+'</a></li>');
+                            console.log(i);
+                            paging(i);
+                        }
+                    }
+                    if(data.page >= data.ptotal){
+                        $('#paging').append('<li class="disabled">last</li>');
+                    } else {
+                        $('#paging').append('<li><a href="/index.php?page="'+data.ptotal+'">last</a></li>');
+                    }
                 }
             });
-                    */
         </script>
     </head>
     <body>
@@ -179,7 +183,10 @@
 	                <tbody id="list">
                     </tbody>
                 </table>
-                <div id="paging">
+                <div id="page_num">
+                    <ul class="list-inline" id="paging"> 
+                        <script> // var page = $('ul < li.active').text(); </script>
+                    </ul>
                 </div>
             </div>
         </div>

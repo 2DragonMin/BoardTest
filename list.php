@@ -1,68 +1,53 @@
 <?php
     session_start();
-    /*
+    
     if(isset($_GET['page'])){
         $page = $_GET['page'];
     } else {
         $page = 1;
     }
-    */
 
     $connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die("Db Connect fali");
     $query_list = "select * from story order by id desc";
     $result_list = $connect->query($query_list);
+    $count = mysqli_num_rows($result_list);
     
-    $result['paging'] = array(
-                    'startPage' => $startP,
-                    'endPage' => $endP,
-                    'totalBlock' => $totalB,
-                    'totalPage' => $totalP,
-                    'pageperblock' => $ppb,
-                    'rowsByPage' => $rbP,
-                    'total' => $totalCount,
-                    'block' => $block,
-                    'page' => $page
+    $list = 5;
+    $block = 5;
+
+    $block_num = ceil($page/$block);
+    $block_s = (($block_num - 1) * $block) + 1;
+    $block_e = $block_s + $block - 1;
+
+ 	$page_total = ceil($count/$list);
+
+    if($block_e > $page_total){
+        $block_e = $page_total;
+    }
+    $block_total = ceil($page_total/$block);
+    $start_num = ($page-1) * $list;
+    
+    $query_page = "select * from story order by id desc limit $start_num, $list";
+    $result_page = $connect->query($query_page);
+
+    $boardList = array(
+        'page' => $page,
+        'block' => $blocki,
+        'ptotal' => $page_total,
+        'btotal' => $block_total,
+        'bstart' => $block_s,
+        'bend' => $block_e,
+        'count' => $count,
+        'boardList' => $list
     );
     
-    $startP = 1;
-    $rbP = 5;
-    $offset = ($_POST['page'] - 1) * $limit;
-    $query_page = "select * from story order by id desc limit ".$offset.', '.$limit;
-    $result_page = $connect->query($query_page);
-    
-    /*
-    if($page <= 1){
-        echo "<li class='disabled'>first</li>";
-    } else {
-        echo "<li><a href='/index.php?page=1'>first</a></li>";
-    }
-    
-    for($i = $block_s; $i <= $block_e; $i++){
-        if($page == $i){
-            echo "<li class='disabled'>[$i]</li>";
-  		} else {
-            echo "<li><a href='/index.php?page=$i'>[$i]</a></li>";
-        }
-    }  
-    
-    if($block >= $total_block){
-    } else {
-        $nextt = $page + 1;
-        echo "<li><a href='/index.php?page=1$next'>next</a></li>";
-    }
-    
-    if($page >= $total_page){
-        echo "<li class='disabled'>last</li>";
-    } else {
-        echo "<li><a href='/index.php?page=$total_page'>last</a></li>";
-    }
-    */
     if($result_list){
-        $a_data = array();
-        while($rows = mysqli_fetch_assoc($result_list)){
-            array_push($a_data, array('id'=>$rows['id'], 'title'=>$rows['title'], 'time'=>$rows['reg_time']));
+        $boardData = array();
+        while($rows = mysqli_fetch_assoc($result_page)){
+            array_push($boardData, array('id'=>$rows['id'], 'title'=>$rows['title'], 'time'=>$rows['reg_time']));
         }
     }
-    
-    echo json_encode($a_data);
+
+    $boardList['boardData'] = $boardData;
+    echo json_encode($boardList);
 ?>
