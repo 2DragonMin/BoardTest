@@ -7,9 +7,15 @@
         $page = 1;
     }
     
+    $search = $_GET['search'];
+
     $connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die("Db Connect fali");
     
-    $query_list = "select * from story order by id desc";
+    if($search != null){
+        $query_list = "select * from story where title like '%$search%'";
+    } else {
+        $query_list = "select * from story order by id desc";
+    }
     $result_list = $connect->query($query_list);
     $count = mysqli_num_rows($result_list);
 
@@ -28,7 +34,7 @@
     $block_total = ceil($page_total/$block);
     $start_num = ($page-1) * $list;
     
-    $query_page = "select * from story order by id desc limit $start_num, $list";
+    $query_page = "select * from story where title like '%$search%' order by id desc limit $start_num, $list";
     $result_page = $connect->query($query_page);
 
     $boardList = array(
@@ -39,6 +45,7 @@
         'bstart' => $block_s,
         'bend' => $block_e,
         'count' => $count,
+        'search' => $search,
         'boardList' => $list
     );
     

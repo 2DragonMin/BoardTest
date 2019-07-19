@@ -51,71 +51,98 @@ session_start();
         
 	    </style>
         <script>
-        var page = 1;
-        function paging(i){
-            page = i;
-            return page;
-        }
+        var listCount;
+        $(document).ready(function(){
+            board(1);
+        });
+        
+        $(document).on('click', '#btn-sch', function() {
+            searchtitle(1);
+        });
+        
+        function board(pageNum) {
             $.ajax({
                 type : 'get',
-                url : 'list.php?page='+page,
+                url : 'list.php',
                 dataType : 'json',
                 data : {
-                    page : page
+                    'page' : pageNum
                 },
                 success : function(data){
+                    $('#list *').remove();
+                    $('#paging *').remove();
+                    console.log(data);
                     $.each(data.boardData, function(list, item){
                         $('#list').append('<tr><td align="center">'+item.id+
-                                '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
-                                '</a></td><td align="center">'+item.time+
-                                '</td></tr>');
+                        '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
+                        '</a></td><td align="center">'+item.time+
+                        '</td></tr>');
                     });
-                    console.log(data);
                     if(data.page <= 1){
                         $('#paging').append('<li class="disabled">first</li>');
                     } else {
-                        $('#paging').append('<li><a href="/index.php?page=1">first</a></li>');
+                        $('#paging').append('<li><a href="#" onclick="board(1)">first</a></li>');
                     }
                     for(var i = data.bstart; i <= data.bend; i++){
                         if(data.page == i){
                             $('#paging').append('<li class="disabled">'+i+'</li>');
                         } else {
-                            $('#paging').append('<li><a href="/index.php?page='+i+'">'+i+'</a></li>');
-                            console.log(i);
-                            paging(i);
+                            $('#paging').append('<li><a href="#" onclick="board('+i+');">'+i+'</a></li>');
                         }
                     }
                     if(data.page >= data.ptotal){
                         $('#paging').append('<li class="disabled">last</li>');
                     } else {
-                        $('#paging').append('<li><a href="/index.php?page="'+data.ptotal+'">last</a></li>');
+                        $('#paging').append('<li><a href="#" onclick="board('+data.ptotal+')">last</a></li>');
                     }
                 }
             });
+        }
+
+        function searchtitle(pageNum){
+            var title = $('input[name=title]').val();
+            $.ajax({
+                type : 'get',
+                url : 'search.php',
+                dataType : 'json',
+                data : {
+                    'page' : pageNum,
+                    'search' : title
+                },
+                success : function(data){
+                    $('#list *').remove();
+                    $('#paging *').remove();
+                    console.log(data);
+                    $.each(data.boardData, function(list, item){
+                        $('#list').append('<tr><td align="center">'+item.id+
+                        '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
+                        '</a></td><td align="center">'+item.time+
+                        '</td></tr>');
+                    });
+                    if(data.page <= 1){
+                        $('#paging').append('<li class="disabled">first</li>');
+                    } else {
+                        $('#paging').append('<li><a href="#" onclick="searchtitle(1)">first</a></li>');
+                    }
+                    for(var i = data.bstart; i <= data.bend; i++){
+                        if(data.page == i){
+                            $('#paging').append('<li class="disabled">'+i+'</li>');
+                        } else {
+                            $('#paging').append('<li><a href="#" onclick="searchtitle('+i+');">'+i+'</a></li>');
+                            console.log(i);
+                        }
+                    }
+                    if(data.page >= data.ptotal){
+                        $('#paging').append('<li class="disabled">last</li>');
+                    } else {
+                        $('#paging').append('<li><a href="#" onclick="searchtitle('+data.ptotal+')">last</a></li>');
+                    }
+                }
+            });
+        }
         </script>
     </head>
     <body>
-    <?php
-    $connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die ("connect fail");
-    
-    //session_start();
-    /*
-    $search = $_GET['search'];	
-    $search_query = "select * from story where title like '%$search%'";
-    $search_result = $connect->query($search_query);
-    $search_total = mysqli_num_rows($search_total);
-
-    if($search == null){
-    	$total_page = ceil($total/$list);
-    } else {
-	    $total_page = ceil($search_total/$list);
-    }
-    
-    $query2 = "select * from story order by id desc limit $start_num, $list";
-    $result2 = $connect->query($query2);
-    $total2 = mysqli_num_rows($result2);
-    */
-    ?>
     <header>
 	    <div class="collapse bg-dark" id="navbarHeader">
 	        <div class="container">
@@ -167,10 +194,11 @@ session_start();
         </section>
         <div class="jumbotron">
 	        <div class="container">
-	            <form name="title" action="/index.php" method="get">
-	            <input type="text" name="search" placeholder="input title."/>
-	            <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
-	            </form>
+	            <form id="title" name="title" method="get">
+	            <input type="text" name="title" placeholder="input title."/>
+	            <button class="btn btn-secondary" type="button" id="btn-sch"><i class="fas fa-search">
+                <script> // search(); </script>
+                </i></button></form>
                 <!-- <div id="list"></div> --> 
                 <table class="table table-striped">
 	                <thead>
@@ -185,7 +213,7 @@ session_start();
                 </table>
                 <div id="page_num">
                     <ul class="list-inline" id="paging"> 
-                        <script> // var page = $('ul < li.active').text(); </script>
+                    
                     </ul>
                 </div>
             </div>
@@ -208,57 +236,10 @@ session_start();
             <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="https://getbootstrap.com/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
         </div>
     </footer>
+    <!--
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    -->
     <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    
     </body>
 </html>
-
-                    <?php /*
-		            if($search == null){
-                    ?>
-                    <?php } else {
-				    while($rows = mysqli_fetch_assoc($search_result)){
-                    ?>
-	                    <tr>
-		                <td align = "center"><?php echo $rows['id']?></td>
-		                <td align = "center">
-		                <a href = "view.php?id=<?php echo $rows['id']?>">
-                        <?php echo $rows['title']?></td>
-                        <td align = "center"><?php echo $rows['reg_time']?></td>
-                        </tr>
-                    <?php }
-		            } */ ?>
-                    <!--
-                <div id="paging">
-                    <ul class="pagination">
-                    <?php /*                    
-                    if($page <= 1){
-                        echo "<li class='disabled'>first</li>";
-                    } else {
-                        echo "<li><a href='/index.php?page=1'>first</a></li>";
-                    }
-                    
-                    for($i = $block_s; $i <= $block_e; $i++){
-                        if($page == $i){
-                            echo "<li class='disabled'>[$i]</li>";
-                        } else {
-                            echo "<li><a href='/index.php?page=$i'>[$i]</a></li>";
-                        }
-                    }  
-                    
-                    if($block >= $total_block){
-                    } else {
-                        $nextt = $page + 1;
-                        echo "<li><a href='/index.php?page=1$next'>next</a></li>";
-                    }
-                    
-                    if($page >= $total_page){
-                        echo "<li class='disabled'>last</li>";
-                    } else {
-                        echo "<li><a href='/index.php?page=$total_page'>last</a></li>";
-                    } */?>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        -->
