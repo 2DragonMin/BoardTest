@@ -5,15 +5,18 @@
         $page = $_GET['page'];
     } else {
         $page = 1;
-    } 
+    }
 
-    $connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die("Db Connect fali");
-    $query_total = "select * from story order by id desc";
-    $result_total = $connect->query($query_total);
-    $count = mysqli_num_rows($result_total);
+    $count = $_GET['count'];
+    $search = $_GET['search'];
 
-    $list = 5;
-    $block = 5;
+	require_once("db.cls.php");
+	
+	$dbcon = new CLS_DB();
+	$dbcon->connect();
+
+	$list = 10;
+    $block = 10;
 
     $block_num = ceil($page/$block);
     $block_s = (($block_num - 1) * $block) + 1;
@@ -27,19 +30,14 @@
     $block_total = ceil($page_total/$block);
     $start_num = ($page-1) * $list;
     
-    $query_page = "select * from story order by id desc limit $start_num, $list";
-    $result_page = $connect->query($query_page);
-
-    if($result_page){
-        $p_data = array(
-            'page' => $page,
-            'total_page' => $page_total,
-            'block' => $block,
-            'block_start' => $block_s,
-            'block_end' => $block_e,
-            'block_total' => $block_total
-        );
-    }
-    
-    echo json_encode($p_data);
+	$boardList = array(
+        'page' => $page,
+        'block' => $block,
+        'ptotal' => $page_total,
+        'btotal' => $block_total,
+        'bstart' => $block_s,
+        'bend' => $block_e,
+        'count' => $count
+    );
+    echo json_encode($boardList);
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-	$connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die("DB connection failed");
+	$connect = mysqli_connect("localhost", "ymlee", "qwe123", "db") or die("DB connection failed");
 
 	$id = $_POST['id'];
 	$pwd = $_POST['pwd'];

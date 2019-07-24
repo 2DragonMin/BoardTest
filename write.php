@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,30 +8,13 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Board example · Bootstrap</title>
 
+    <link href="basic.css" rel="stylesheet">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
     <!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <script src="https://kit.fontawesome.com/ef773e0dc4.js"></script>
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
   </head>
 
   <body>
@@ -50,18 +32,18 @@
 <div class="container">
     <div class="row">
       <div class="col-md-6 md-3">
-	<label for="title">TITLS</label>
+	      <label for="title">TITLS</label>
         <input type="text" class="form-control" name="title" placeholder="Input title" required>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 md-3">
-        <label for="contents">CONTENTS</label>
+        <label for="contents">CONTENTS</label><br>
         <textarea name="contents" cols=60 rows=15 placeholder="Input contents" required></textarea>
       </div>
     </div>
     <div class="center">
-      <button class="btn btn-secondary" type="submit"><i class="fas fa-upload"></i></input>
+      <button class="btn btn-secondary" type="submit"><i class="fas fa-upload"></i></button>
     </div>
 </div>
 </div>

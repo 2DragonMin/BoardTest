@@ -1,23 +1,35 @@
 <?php
-	
-	$connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die("fail");
+    require_once("db.cls.php");
 
-	$title = $_POST['title'];
-	$contents = $_POST['contents'];	
-	$date = date('Y-m-d H:i:s');
+    $dbcon = new CLS_DB();
+    $dbcon->connect();
 
-	$query = "INSERT INTO story (title, contents, reg_time) VALUES ('$title', '$contents', '$date')";
-	
-	$result = $connect->query($query);
-	if($result){
-?>		<script>
-			alert("Success");
-			location.replace("/index.php");
-		</script>
-<?php	}
-	else{
-		echo "FAIL";
-	}
+    $title = $_POST['title'];
+    $contents = $_POST['contents'];
+    $date = date('Y-m-d H:i:s');
+    $depth = 0;
+    
+    $idx = "ALTER TABLE story AUTO_INCREMENT = 1";
+    $idx_result = $dbcon->execute($idx);
 
-	mysqli_close($connect);
+    $query = "INSERT INTO story (title, contents, reg_time, depth) VALUES ('$title', '$contents', '$date', '$depth')";
+    $result = $dbcon->execute($query);
+
+    $getId = "SELECT MAX(id) FROM story";
+    $resultId = $dbcon->getId($getId);
+
+    $upquery = "UPDATE story SET grpNum = '$resultId' WHERE id = '$resultId'";
+    $dbcon->execute($upquery);
+
+    if($result){ ?>
+        <script>
+            alert("success");
+            location.replace("/index.php");
+        </script>    
+    <?php
+    } else { 
+        echo "FAIL";
+    }    
+
+    mysqli_cloase($dbcon);
 ?>

@@ -1,19 +1,27 @@
--- MySQL dump 10.13  Distrib 5.7.26, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.40-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: db
+-- Host: localhost    Database: 
 -- ------------------------------------------------------
--- Server version	5.7.26-0ubuntu0.18.04.1
+-- Server version	10.1.40-MariaDB-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `db`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
+USE `db`;
 
 --
 -- Table structure for table `account`
@@ -82,7 +90,7 @@ CREATE TABLE `comment` (
   `pid` int(20) NOT NULL,
   `comment` varchar(512) NOT NULL,
   PRIMARY KEY (`cno`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,8 +99,35 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (2,'dkssua01',15,'12345'),(3,'',15,'234234234'),(4,'dkssua01',15,'1233'),(5,'dkssua01',15,'124124'),(6,'dkssua01',15,'2352'),(7,'dkssua01',15,'55555'),(8,'dkssua01',15,'42342'),(9,'dkssua01',15,'5555'),(10,'dkssua01',15,'4234234'),(11,'dkssua01',15,'124124'),(12,'dkssua01',15,'53554545'),(13,'dkssua01',15,'234234'),(14,'dkssua01',15,'555555555555'),(15,'dkssua01',15,'345345'),(16,'dkssua01',15,'346'),(17,'dkssua01',14,'5555'),(18,'dkssua01',13,'456456'),(19,'dkssua01',15,'124');
+INSERT INTO `comment` VALUES (2,'dkssua01',15,'12345'),(3,'',15,'234234234'),(4,'dkssua01',15,'1233'),(5,'dkssua01',15,'124124'),(6,'dkssua01',15,'2352'),(7,'dkssua01',15,'55555'),(8,'dkssua01',15,'42342'),(9,'dkssua01',15,'5555'),(10,'dkssua01',15,'4234234'),(11,'dkssua01',15,'124124'),(12,'dkssua01',15,'53554545'),(13,'dkssua01',15,'234234'),(14,'dkssua01',15,'555555555555'),(15,'dkssua01',15,'345345'),(16,'dkssua01',15,'346'),(17,'dkssua01',14,'5555'),(18,'dkssua01',13,'456456'),(19,'dkssua01',15,'124'),(20,'dkssua01',15,'4444'),(21,'dkssua01',14,'345345345'),(22,'dkssua01',15,'addasd'),(23,'dkssua01',17,'ㄴㄷㅇㄷㅇㄴㄱㄱㄹ'),(24,'dkssua01',17,'ㅌㅊㄾ'),(25,'dkssua01',0,'123123'),(26,'dkssua01',0,'124123'),(27,'dkssua01',0,'4444'),(28,'dkssua01',0,''),(29,'dkssua01',0,''),(30,'dkssua01',0,''),(31,'dkssua01',0,''),(32,'dkssua01',0,''),(33,'dkssua01',0,''),(34,'dkssua01',0,''),(35,'dkssua01',0,''),(36,'dkssua01',0,''),(37,'dkssua01',0,'234235'),(38,'dkssua01',15,'11111'),(39,'dkssua01',15,''),(40,'dkssua01',15,'11111'),(41,'dkssua01',19,'123124'),(42,'dkssua01',19,'4444'),(43,'dkssua01',19,'235345'),(44,'dkssua01',19,'345456456'),(45,'dkssua01',19,'111');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `commentSt`
+--
+
+DROP TABLE IF EXISTS `commentSt`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `commentSt` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) NOT NULL,
+  `contents` varchar(512) DEFAULT NULL,
+  `reg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `grpNum` int(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `commentSt`
+--
+
+LOCK TABLES `commentSt` WRITE;
+/*!40000 ALTER TABLE `commentSt` DISABLE KEYS */;
+INSERT INTO `commentSt` VALUES (1,'345','345','2019-07-22 06:05:29',0),(2,'345345','3546456','2019-07-22 07:52:16',19),(3,'19댓','19ㅂ너꺼','2019-07-23 00:15:38',0),(4,'19번글','19번 댓글','2019-07-23 00:19:12',0),(5,'19번글','1919','2019-07-23 00:20:01',0);
+/*!40000 ALTER TABLE `commentSt` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -132,8 +167,10 @@ CREATE TABLE `story` (
   `title` varchar(20) NOT NULL,
   `contents` varchar(512) DEFAULT NULL,
   `reg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `depth` int(11) NOT NULL,
+  `grpNum` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +179,7 @@ CREATE TABLE `story` (
 
 LOCK TABLES `story` WRITE;
 /*!40000 ALTER TABLE `story` DISABLE KEYS */;
-INSERT INTO `story` VALUES (1,'123','123','2019-07-04 01:30:50'),(2,'123','123','2019-07-04 01:32:20'),(3,'111','123123','2019-07-04 05:33:34'),(4,'333','333','2019-07-04 05:42:04'),(5,'4444444','44`1313','2019-07-04 05:47:24'),(6,'4545','454545','2019-07-04 05:52:37'),(7,'124','12345','2019-07-04 05:57:13'),(8,'124555555555','12355','2019-07-04 05:58:14'),(9,'4444444','445555','2019-07-05 01:32:59'),(10,'4535','345354','2019-07-05 01:33:04'),(11,'34534511111','345345345555','2019-07-05 01:33:10'),(12,'55123','1412333','2019-07-08 04:43:26'),(13,'123444','44','2019-07-08 04:49:32'),(14,'124555345435','345345346','2019-07-08 04:52:47'),(15,'dddddddddddddddddddd','dddddddddddddddddd','2019-07-08 06:22:14');
+INSERT INTO `story` VALUES (1,'123','123','2019-07-22 08:44:06',0,1),(3,'111','123123','2019-07-22 08:44:21',0,3),(4,'333','333','2019-07-22 08:44:27',0,4),(5,'4444444','44`1313','2019-07-22 08:44:31',0,5),(6,'4545','454545','2019-07-22 08:44:37',0,6),(7,'124','12345','2019-07-22 08:44:43',0,7),(8,'124555555555','12355','2019-07-22 08:44:50',0,8),(9,'4444444','445555','2019-07-22 08:44:57',0,9),(10,'4535','345354','2019-07-22 08:45:03',0,10),(11,'34534511111','345345345555','2019-07-22 08:45:10',0,11),(12,'55123','1412333','2019-07-22 08:45:13',0,12),(13,'123444','44','2019-07-22 08:45:17',0,13),(14,'124555345435','345345346','2019-07-22 08:45:22',0,14),(15,'dddddddddddddddddddd','dddddddddddddddddd','2019-07-22 08:45:27',0,15),(16,'맘마미야','맘마미야','2019-07-22 08:45:32',0,16),(17,'안녕하세요 ㅎㅎ','처음뵙겠습니다.','2019-07-22 08:45:37',0,17),(18,'123123','23333','2019-07-22 08:45:41',0,18),(19,'45235','34ㅅㄷ4ㅅ','2019-07-22 08:45:48',0,19),(20,'6666','555','2019-07-23 02:45:45',1,6),(21,'333','333','2019-07-23 04:08:48',1,19),(22,'444','444','2019-07-24 00:50:41',2,19),(23,'555','555','2019-07-24 02:48:03',2,19);
 /*!40000 ALTER TABLE `story` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -155,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-19 10:32:09
+-- Dump completed on 2019-07-24 13:05:41

@@ -1,9 +1,5 @@
 <!doctype html>
-<?php 
-
-session_start();
-
-?>
+<?php session_start(); ?>
 <html lang="en">
     <head>
 	    <meta charset="utf-8">
@@ -11,136 +7,18 @@ session_start();
 	    <meta name="description" content="">
 	    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 	    <meta name="generator" content="Jekyll v3.8.5">
-	    <title>Board example · Bootstrap</title>
-
+        <title>Board example · Bootstrap</title>
+        
+        <link href="basic.css" rel="stylesheet">
 	    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
 	    <!-- Bootstrap core CSS -->
 	    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	    <script src="https://kit.fontawesome.com/ef773e0dc4.js"></script>
-        
+		<!--
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        -->
+        <script src="https://kit.fontawesome.com/0b4465d718.js"></script>       
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-	    <style>
-	    .bd-placeholder-img {
-		    font-size: 1.125rem;
-		    text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            }
-        
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-        
-        #page_num {
-            margin-left : 260px;
-            margin-top : 30px;
-        }
-
-        #page_num ul li{
-            float : left;
-            margin-left : 10px;
-            text-align : center;
-        }
-        
-	    </style>
-        <script>
-        var listCount;
-        $(document).ready(function(){
-            board(1);
-        });
-        
-        $(document).on('click', '#btn-sch', function() {
-            searchtitle(1);
-        });
-        
-        function board(pageNum) {
-            $.ajax({
-                type : 'get',
-                url : 'list.php',
-                dataType : 'json',
-                data : {
-                    'page' : pageNum
-                },
-                success : function(data){
-                    $('#list *').remove();
-                    $('#paging *').remove();
-                    console.log(data);
-                    $.each(data.boardData, function(list, item){
-                        $('#list').append('<tr><td align="center">'+item.id+
-                        '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
-                        '</a></td><td align="center">'+item.time+
-                        '</td></tr>');
-                    });
-                    if(data.page <= 1){
-                        $('#paging').append('<li class="disabled">first</li>');
-                    } else {
-                        $('#paging').append('<li><a href="#" onclick="board(1)">first</a></li>');
-                    }
-                    for(var i = data.bstart; i <= data.bend; i++){
-                        if(data.page == i){
-                            $('#paging').append('<li class="disabled">'+i+'</li>');
-                        } else {
-                            $('#paging').append('<li><a href="#" onclick="board('+i+');">'+i+'</a></li>');
-                        }
-                    }
-                    if(data.page >= data.ptotal){
-                        $('#paging').append('<li class="disabled">last</li>');
-                    } else {
-                        $('#paging').append('<li><a href="#" onclick="board('+data.ptotal+')">last</a></li>');
-                    }
-                }
-            });
-        }
-
-        function searchtitle(pageNum){
-            var title = $('input[name=title]').val();
-            $.ajax({
-                type : 'get',
-                url : 'search.php',
-                dataType : 'json',
-                data : {
-                    'page' : pageNum,
-                    'search' : title
-                },
-                success : function(data){
-                    $('#list *').remove();
-                    $('#paging *').remove();
-                    console.log(data);
-                    $.each(data.boardData, function(list, item){
-                        $('#list').append('<tr><td align="center">'+item.id+
-                        '</td><td align="center"><a href="view.php?id='+item.id+'">'+item.title+
-                        '</a></td><td align="center">'+item.time+
-                        '</td></tr>');
-                    });
-                    if(data.page <= 1){
-                        $('#paging').append('<li class="disabled">first</li>');
-                    } else {
-                        $('#paging').append('<li><a href="#" onclick="searchtitle(1)">first</a></li>');
-                    }
-                    for(var i = data.bstart; i <= data.bend; i++){
-                        if(data.page == i){
-                            $('#paging').append('<li class="disabled">'+i+'</li>');
-                        } else {
-                            $('#paging').append('<li><a href="#" onclick="searchtitle('+i+');">'+i+'</a></li>');
-                            console.log(i);
-                        }
-                    }
-                    if(data.page >= data.ptotal){
-                        $('#paging').append('<li class="disabled">last</li>');
-                    } else {
-                        $('#paging').append('<li><a href="#" onclick="searchtitle('+data.ptotal+')">last</a></li>');
-                    }
-                }
-            });
-        }
-        </script>
+        <script src="/boardTest.js"></script>
     </head>
     <body>
     <header>
@@ -194,11 +72,12 @@ session_start();
         </section>
         <div class="jumbotron">
 	        <div class="container">
-	            <form id="title" name="title" method="get">
-	            <input type="text" name="title" placeholder="input title."/>
-	            <button class="btn btn-secondary" type="button" id="btn-sch"><i class="fas fa-search">
-                <script> // search(); </script>
-                </i></button></form>
+	            <form id="title" method="get">
+	                <input type="text" name="title" placeholder="input title."/>
+	                <button class="btn btn-secondary" type="button" id="btn-sch">
+                    <i class="fas fa-search"></i>
+                </button>
+                </form>
                 <!-- <div id="list"></div> --> 
                 <table class="table table-striped">
 	                <thead>

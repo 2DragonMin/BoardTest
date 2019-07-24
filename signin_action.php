@@ -1,13 +1,14 @@
 <?php
+ini_set("display_errors", "1");
 	session_start();
-
-	$connect = mysqli_connect("localhost", "ymlee", "Dydals89!", "db") or die("DB connection failed");
+	
+	$connect = mysqli_connect("localhost", "ymlee", "qwe123", "db") or die("connect failed");
 
 	$id = $_POST['id'];
 	$pwd = $_POST['pwd'];
 
 	$query = "select * from account where id='$id'";
-       	$result = $connect->query($query);
+    $result = $connect->query($query);
 
 	if(mysqli_num_rows($result)==1){
 		$row = mysqli_fetch_assoc($result);
@@ -16,7 +17,7 @@
 			if(isset($_SESSION['uid'])){
 		?>	<script>
 				alert("Join success");
-				location.replace("/index.php");
+				location.replace("index.php");
 			</script>
 	<?php		}		
 			else {
