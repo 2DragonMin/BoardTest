@@ -13,7 +13,7 @@
 
     $getDepth_sql = "SELECT MAX(depth) FROM story WHERE grpNum = $grpNum";
     $resultDepth = $dbcon->getId($getDepth_sql);
-    $p_depth = $resultDepth + 1;
+    $p_depth = $resultDepth[0] + 1;
 
     $idx = "alter table story auto_increment = 1";
     $idx_result = $dbcon->execute($idx);
@@ -27,7 +27,7 @@
     if($result){ ?>
         <script>
             alert("input comment success.");
-            history.back();
+            location.replace("index.php");
         </script>
     <?php 
     }

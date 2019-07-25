@@ -59,7 +59,7 @@
                         <div><h5>Comment List</h5>
                         <thead>
                             <tr>
-                                <th>User</th>
+                                <th style="width:150px">User</th>
                                 <th>Comment</th>
                             </tr>
                         </thead>
@@ -68,30 +68,34 @@
                         </div>
                     </div>
                 </table>
-                <table class="table table=striped"> 
-                <form action="comment.php" method="GET">
+                <table class="table table=striped">                 
+                <form id="comment" method="GET">             
                     <tr>
                         <td><label for="comment">Comment</label></td>
-                        <td><input type="hidden" value=<?php echo $id?> name="pid"></td>
-                        <td><textarea rows="1" cols="55" name="comment" id="comment"></textarea></td>
-                        <td><button class="btn btn-secondary" type="submit" id="btn-comup">Coment Up</button></td>
+                        <td><input type="text" style="width:700px" cols="55" name="c_text"></textarea></td>
+                        <td><button class="btn btn-secondary" type="button" id="btn-comup">Coment Up</button></td>
                     </tr>
                 </form>
                 </table>
                 <?php if($rows['depth'] == 0){ ?>
                     <table class="table table=stripe">
                     <form action="commentWrite.php" method="POST">
-                    <tr><label for="Comment Board"><h5>Comment Board</h5></label>
-                        <!--
-                            <td><input type="hidden" value=<?php //echo $rows['depth']?> name="p_depth"></td>
-                        -->
-                        <td><input type="hidden" value=<?php echo $rows['id']?> name="grpNum"></td>
-                        <td><label for="Title">title</label><td>
+                    <thead>
+                        <tr><h5>Comment Board</h5></label>
+                        <td>TITLE</td>
+                        <td>CONTENTS</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
                         <td><input type="text" class="form-control" name="title" placeholder="Input title"></td>
-                        <td><label for="contents">CONTENTS</label><br></td>
                         <td><textarea name="contents" cols=50 rows=5 placeholder="Input contents" required></textarea></td>
                         <td><button class="btn btn-secondary" type="submit"><i class="fas fa-upload"></i></button></td>
-                    </tr>
+                        </tr>
+                        <tr>
+                        <td><input type="hidden" value=<?php echo $rows['id']?> name="grpNum"></td>
+                        </tr>
+                    </tbody>
                     </form>
                     </table>
                 <?php } ?>                

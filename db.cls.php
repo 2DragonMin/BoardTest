@@ -64,7 +64,8 @@ class CLS_DB
 	
 	function getId($query){
 		if($result = mysqli_query($this->connection, $query)){
-			return $result;
+			$row = mysqli_fetch_array($result);
+			return $row;
 		} else {
 			return 0;
 		}

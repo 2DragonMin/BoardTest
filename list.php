@@ -15,9 +15,9 @@
     $dbcon->connect();
     
     if($search != null){
-        $query_list = "select id, title, reg_time from story where title like '%$search%' order by id, asc, grpNum desc";
+        $query_list = "select id, title, reg_time, depth, grpNum from story where title like '%$search%' order by id, asc, grpNum desc";
     } else {
-        $query_list = "select id, title, reg_time from story order by id desc, grpNum desc, id asc";
+        $query_list = "select id, title, reg_time, depth, grpNum from story order by id desc, grpNum desc, id asc";
     }
 	$boardData = $dbcon->get($query_list);
     $count = count($boardData);

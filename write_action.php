@@ -13,13 +13,13 @@
     $idx_result = $dbcon->execute($idx);
 
     $query = "INSERT INTO story (title, contents, reg_time, depth) VALUES ('$title', '$contents', '$date', '$depth')";
-    $result = $dbcon->execute($query);
+    $dbcon->execute($query);
 
     $getId = "SELECT MAX(id) FROM story";
     $resultId = $dbcon->getId($getId);
 
-    $upquery = "UPDATE story SET grpNum = '$resultId' WHERE id = '$resultId'";
-    $dbcon->execute($upquery);
+    $upquery = "UPDATE story SET grpNum = '$resultId[0]' WHERE id = '$resultId[0]'";
+    $result = $dbcon->execute($upquery);
 
     if($result){ ?>
         <script>
@@ -28,6 +28,7 @@
         </script>    
     <?php
     } else { 
+        echo "$resultId[0]";
         echo "FAIL";
     }    
 

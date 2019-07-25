@@ -22,12 +22,12 @@ function board(page, title) {
             $.each(data.boardData, function(list, item){
                 if(item[3] > 0){
                     var re = item[3] * 20;
-                    $('#list').append('<tr><td align="center">'+item[0]+
+                    $('#list').append('<tr><td align="center">RE: '+item[3]+
                     '</td><td style="padding-left:'+re+'px"><a href="view.php?id='+item[0]+'">RE: '+item[1]+
                     '</a></td><td align="center">'+item[2]+
                     '</td></tr>');
                 } else {
-                    $('#list').append('<tr><td align="center">'+item[0]+
+                    $('#list').append('<tr><td align="center">'+item[4]+
                     '</td><td><a href="view.php?id='+item[0]+'">'+item[1]+
                     '</a></td><td align="center">'+item[2]+
                     '</td></tr>');

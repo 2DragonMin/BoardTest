@@ -12,7 +12,9 @@
     $query = "INSERT INTO comment(uid, pid, comment) VALUES('$cid', '$pid', '$comment')";
     $result = $dbcon->execute($query);
 
-    
+    echo json_encode($result);
+
+    /*
     if($result){ ?>
         <script>
             //alert("input comment success.");
@@ -23,4 +25,5 @@
     else{
         echo $cid."....".$comment;
     }
+    */
 ?>
