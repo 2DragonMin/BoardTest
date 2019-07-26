@@ -11,10 +11,34 @@
     <link href="basic.css" rel="stylesheet">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
     <!-- Bootstrap core CSS -->
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <script src="https://kit.fontawesome.com/ef773e0dc4.js"></script>
+    <!-- tinymce Editer -->
+    <!--
+    <script src="https://cdn.tiny.cloud/1/771m4nwr4ni1tgt5qrbimaryvoct03cen4lyys18nmexsy1c/tinymce/5/tinymce.min.js"></script>
+    -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.11/tinymce.min.js"></script>
+    <script>
+	    tinyMCE.init({
+          selector:'#mce',
+          branding:false,
+          menubar:false
+      });
+      
+      function readURL(input){
+        if (input.files && input.files[0]) { 
+          var reader = new FileReader(); 
+          reader.onload = function (e) { 
+            $('#blah').attr('src', e.target.result); 
+          }
+          reader.readAsDataURL(input.files[0]); 
+        }
+      }
+      
+    </script>
+
   </head>
 
   <body>
@@ -27,26 +51,26 @@
       </div>
     </div>
   </header>
-  <form method="POST" action="write_action.php">
-<div class="jumbotron">
-<div class="container">
-    <div class="row">
-      <div class="col-md-6 md-3">
-	      <label for="title">TITLS</label>
-        <input type="text" class="form-control" name="title" placeholder="Input title" required>
+  <form method="POST" action="write_action.php" enctype="multipart/form-data" novalidate>
+    <div class="jumbotron">
+      <div class="container">
+        <table class="table table-striped">
+          <thead> <tr><th><h3>TITLE</h3></th></tr> </thead>
+          <tbody> <tr><td><input type="text" class="form-control" name="title" placeholder="Input title" escapeXml="false" required></td></tr> </tbody>
+        </table>
+        <table class="table table-striped">
+          <thead> <tr><th><h3>CONTENTS</h3></th></tr> </thead>
+          <tbody> <tr><td><textarea name="contents" id="mce" rows="15" required></textarea></td></tr> </tbody>
+        </table>
+        <table>
+          <button class="btn btn-secondary" type="submit" style="float: right;">글 올리기 <i class="fas fa-pen-alt"></i></button>
+          <div>
+            <input type="file" class="input-file-hidden" name="file" onchange="readURL(this)"/>
+            <img id="blah" src="#" alt="your image" />
+          </div>
+        </table>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6 md-3">
-        <label for="contents">CONTENTS</label><br>
-        <textarea name="contents" cols=60 rows=15 placeholder="Input contents" required></textarea>
-      </div>
-    </div>
-    <div class="center">
-      <button class="btn btn-secondary" type="submit"><i class="fas fa-upload"></i></button>
-    </div>
-</div>
-</div>
   </form>
 
 <footer class="text-muted">

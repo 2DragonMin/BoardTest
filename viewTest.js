@@ -20,11 +20,8 @@ function view(id){
         },
         success : function(data){
             $('#viewData').children().remove();
-            $('#viewData').append('<tr><td>'+data.view[0][0]+'</td>'
-            +'<td>'+data.view[0][1]+'</td>'
-            +'<td>'+data.view[0][2]+'</td>'
-            +'<td>'+data.view[0][3]+'</td></tr>'
-            );
+            $('#viewValue').children().remove();
+            contents(data.view);
             $('#viewComment').children().remove();
             $.each(data.comment, function(i, comment){    
                 $('#viewComment').append('<tr><td>'+comment[0]+'</td>'
@@ -32,6 +29,16 @@ function view(id){
             });
         },
     });
+}
+
+function contents(view){
+    $('#viewData').append('<tr align="center"><td>'+view[0][0]+'</td>'
+    +'<td>'+view[0][1]+'</td>'
+    +'<td>'+view[0][2]+'</td>'
+    +'<td><a href="download.php?filehash='+view[0][5]+'" target="_blank">'+view[0][4]+'</td></tr>'
+    );
+    $('#viewValue').append('<tr><td>'+view[0][3]+'</td></tr>'
+    );
 }
 
 function comment(id, comment){

@@ -21,6 +21,15 @@
     <script src="https://kit.fontawesome.com/ef773e0dc4.js"></script> 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/viewTest.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.11/tinymce.min.js"></script>
+    <script>
+	    tinyMCE.init({
+          selector:'#mce',
+          branding:false,
+          menubar:false,
+      });
+    </script>
 </head>
 <body>
     <?php
@@ -44,14 +53,21 @@
             <div class="container">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
+                        <tr align="center">
                             <th>Title</th>
                             <th>Number</th>
                             <th>Time</th>
-                            <th>Contents</th>
+                            <th>File</th>
                         </tr>   
                     </thead>
                     <tbody id="viewData">
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr><th>Contents</th></tr>   
+                    </thead>
+                    <tbody id="viewValue">
                     </tbody>
                 </table>
                 <table class="table table-striped">
@@ -69,40 +85,45 @@
                     </div>
                 </table>
                 <table class="table table=striped">                 
-                <form id="comment" method="GET">             
-                    <tr>
-                        <td><label for="comment">Comment</label></td>
-                        <td><input type="text" style="width:700px" cols="55" name="c_text"></textarea></td>
+                <form id="comment" method="GET"> 
+                    <table class="table table-striped">        
+                    <thead><tr><th>Comment</th></tr></thead>
+                    <tbody><tr>
+                        <td><input type="text" style="width:700px" cols="55" name="c_text" id="text" placeholder="Input comment" required></td>
                         <td><button class="btn btn-secondary" type="button" id="btn-comup">Coment Up</button></td>
-                    </tr>
+                    </tr></tbody>
+                    </table>
                 </form>
                 </table>
                 <?php if($rows['depth'] == 0){ ?>
-                    <table class="table table=stripe">
                     <form action="commentWrite.php" method="POST">
-                    <thead>
-                        <tr><h5>Comment Board</h5></label>
-                        <td>TITLE</td>
-                        <td>CONTENTS</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td><input type="text" class="form-control" name="title" placeholder="Input title"></td>
-                        <td><textarea name="contents" cols=50 rows=5 placeholder="Input contents" required></textarea></td>
-                        <td><button class="btn btn-secondary" type="submit"><i class="fas fa-upload"></i></button></td>
-                        </tr>
-                        <tr>
-                        <td><input type="hidden" value=<?php echo $rows['id']?> name="grpNum"></td>
-                        </tr>
-                    </tbody>
+                        <table class="table table=stripe">
+                            <thead>
+                                <tr><h5>Comment Board</h5>
+                                <th>TITLE</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><input type="text" class="form-control" name="title" placeholder="Input title" required></td></tr>      
+                            </tbody>
+                        </table>
+                        <table class="table table=stripe">
+                            <thead>
+                                <tr><th>CONTENTS</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><textarea name="contents" id="mce" rows="15" required></textarea></td></tr> 
+                            </tbody>
+                        </table>
+                        <table>
+                            <button class="btn btn-secondary" type="submit" style="float: right;">글 올리기     <i class="fas fa-upload"></i></button>
+                            <input type="hidden" value=<?php echo $rows['id']?> name="grpNum" />
+                        </table>
                     </form>
-                    </table>
                 <?php } ?>                
             </div>
-            <div class="view_btn" align="center">
-            <button class="btn btn-primary" onclick="location.href='/index.php'">Go to list</button>
-            </div>
+            <table class="table table=stripe">
+                    <button class="btn btn-primary" onclick="location.href='/index.php'" style="float: right;">Go to list   <i class="fas fa-undo"></i></button>
+            </table>
         </div>
     </div>
 </main>

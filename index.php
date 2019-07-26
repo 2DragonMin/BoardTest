@@ -7,6 +7,10 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 	    <meta name="generator" content="Jekyll v3.8.5">
+		<meta http-equiv="Content-Script-Type" content="text/javascript">
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Publisher" content="advantapp" />
         <title>Board example · Bootstrap</title>
         
         <link href="basic.css" rel="stylesheet">

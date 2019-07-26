@@ -8,11 +8,20 @@
     $contents = $_POST['contents'];
     $date = date('Y-m-d H:i:s');
     $depth = 0;
-    
+
+    $tmpfile = $_FILES['file']['tmp_name'];
+    if($tmpfile){
+        $o_name = $_FILES['file']['name'];
+        $fileName = md5(iconv("UTF-8", "EUC-KR", $_FILES['file']['name']));
+        $fileDir = "/var/webdata/".$fileName;
+        
+        move_uploaded_file($tmpfile, $fileDir);    
+    }
+
     $idx = "ALTER TABLE story AUTO_INCREMENT = 1";
     $idx_result = $dbcon->execute($idx);
-
-    $query = "INSERT INTO story (title, contents, reg_time, depth) VALUES ('$title', '$contents', '$date', '$depth')";
+    
+    $query = "INSERT INTO story (title, contents, reg_time, depth, upFile, hashFile) VALUES ('$title', '$contents', '$date', '$depth', '$o_name', '$fileName')";
     $dbcon->execute($query);
 
     $getId = "SELECT MAX(id) FROM story";
@@ -23,7 +32,7 @@
 
     if($result){ ?>
         <script>
-            alert("success");
+            alert("success<?php echo "$fileDir";?>");
             location.replace("/index.php");
         </script>    
     <?php
