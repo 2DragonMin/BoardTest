@@ -15,6 +15,7 @@
 }
 
 #page_num {
+    margin-right : 260px;
     margin-left : 260px;
     margin-top : 30px;
 }
@@ -25,6 +26,20 @@
     text-align : center;
 }
 
+@media ( max-width: 767px ) {
+    #page_num {
+        margin-right : auto;
+        margin-left : auto;
+        margin-top : auto;
+    }
+    
+    #page_num ul li{
+        float : left;
+        margin-left : auto;
+        text-align : center;
+    }
+  }
+
 .left-box {
     float: left;
 }
@@ -32,3 +47,4 @@
 .right-box {
     float: right;
 }
+

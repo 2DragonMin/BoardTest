@@ -1,6 +1,5 @@
 <!doctype html>
 <?php
-    session_start();
     $id = $_GET['id'];
 ?>
 <html lang="en">
@@ -52,7 +51,7 @@
         <div class="jumbotron">
             <div class="container">
                 <div>
-                    <form action="modify.php" method="GET">
+                    <form action="write.php" method="POST">
                         <button class="btn btn-basic" style="float: right;"><i class="fas fa-edit"></i>     Modify</button>
                         <input type="hidden" value=<?php echo $id?> name="Num" />
                     </form>
@@ -93,18 +92,16 @@
                         </tbody>
                         </div>
                     </div>
-                </table>
-                <table class="table table=striped">                 
+                </table>             
                 <form id="comment" method="GET"> 
                     <table class="table table-striped">        
                     <thead><tr><th>Comment</th></tr></thead>
                     <tbody><tr>
-                        <td><input type="text" style="width:700px" cols="55" name="c_text" id="text" placeholder="Input comment" required></td>
+                        <td><input type="text"  class="form-control" cols="55" name="c_text" id="text" placeholder="Input comment" required></td>
                         <td><button class="btn btn-secondary" type="button" id="btn-comup">Coment Up</button></td>
                     </tr></tbody>
                     </table>
                 </form>
-                </table>
                 <?php if($rows['depth'] == 0){ ?>
                     <form action="commentWrite.php" method="POST" novalidate>
                         <table class="table table=stripe">

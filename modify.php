@@ -64,6 +64,12 @@
         <table>
           <button class="btn btn-secondary" type="submit" style="float: right;">Modify Up<i class="fas fa-pen-alt"></i></button>
           <input type="hidden" value=<?php echo $id?> name="Num" />
+          <!--
+          <div>
+            <input type="file" class="input-file-hidden" name="file" onchange="readURL(this)"/>
+            <img id="blah" src="#" alt="your image"/>
+          </div>
+          -->
         </table>
       </div>
     </div>

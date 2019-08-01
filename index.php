@@ -87,14 +87,7 @@
 	                	<tbody id="list"> </tbody>
 					</table>
 				</div>
-				<div>
-					<!--
-					<button class="btn btn-basic" style="float: right;"><i class="fas fa-edit"></i>     Modify</button>
-					<button class="btn btn-basic" id="btn-del" style="float: right;"><i class="fas fa-trash"></i>    Delete</button>
-					<a href="/delete.php" class="btn btn-primary my-2" style="float: left;">Delete		<i class="fas fa-trash"></i></a>
-					-->
-				</div>
-                <div id="page_num">
+                <div id="page_num" >
 					<ul class="list-inline" id="paging"> </ul>
 				</div>
 				<div>

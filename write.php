@@ -1,4 +1,20 @@
 <!doctype html>
+<?php
+  require_once("db.cls.php");
+
+  $id = $_POST['Num'];
+  
+  $dbcon = new CLS_DB();
+  $dbcon->connect();
+  
+  $sql = "SELECT title, contents FROM story WHERE id=$id";
+  $result = $dbcon->get($sql);
+  $title = $result[0][0];
+  $contents = $result[0][1];
+
+  $dbcon->close();
+  
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -39,9 +55,7 @@
       }
       
     </script>
-
   </head>
-
   <body>
   <header>
     <div class="navbar navbar-dark bg-dark shadow-sm">
@@ -52,7 +66,9 @@
       </div>
     </div>
   </header>
-  <form method="POST" action="write_action.php" enctype="multipart/form-data" novalidate>
+  <?php
+  if($id == null){ ?>
+    <form method="POST" action="write_action.php" enctype="multipart/form-data" novalidate>
     <div class="jumbotron">
       <div class="container">
         <table class="table table-striped">
@@ -61,10 +77,10 @@
         </table>
         <table class="table table-striped">
           <thead> <tr><th><h3>CONTENTS</h3></th></tr> </thead>
-          <tbody> <tr><td><textarea name="contents" id="mce" rows="15" required></textarea></td></tr> </tbody>
+          <tbody> <tr><td><textarea name="contents" id="mce" rows="15" required><?php echo $contents;?></textarea></td></tr> </tbody>
         </table>
         <table>
-          <button class="btn btn-secondary" type="summit" id="btn-write" style="float: right;">write Up <i class="fas fa-pen-alt"></i></button>
+          <button class="btn btn-secondary" type="summit" style="float: right;">write Up <i class="fas fa-pen-alt"></i></button>
           <div>
             <input type="file" class="input-file-hidden" name="file" onchange="readURL(this)"/>
             <img id="blah" src="#" alt="your image"/>
@@ -73,15 +89,33 @@
       </div>
     </div>
   </form>
-
+  <?php }
+  else { ?>
+    <form method="POST" action="modify_action.php" enctype="multipart/form-data" novalidate>
+    <div class="jumbotron">
+      <div class="container">
+        <table class="table table-striped">
+          <thead> <tr><th><h3>TITLE</h3></th></tr> </thead>
+          <tbody> <tr><td><input type="text" class="form-control" name="title" value="<?php echo $title;?>" placeholder="Input title" required></td></tr> </tbody>
+        </table>
+        <table class="table table-striped">
+          <thead> <tr><th><h3>CONTENTS</h3></th></tr> </thead>
+          <tbody> <tr><td><textarea name="contents" id="mce" rows="15" required><?php echo $contents;?></textarea></td></tr> </tbody>
+        </table>
+        <table>
+          <button class="btn btn-secondary" type="submit" style="float: right;">Modify Up<i class="fas fa-pen-alt"></i></button>
+          <input type="hidden" value=<?php echo $id?> name="Num" />
+        </table>
+      </div>
+    </div>
+  </form>
+  <?php } ?>
+  
 <footer class="text-muted">
   <div class="container">
     <p class="float-right">
       <a href="#">Back to top</a>
     </p>
-    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
-  </div>
 </footer>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 	<script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>

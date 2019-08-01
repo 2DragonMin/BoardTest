@@ -55,3 +55,8 @@ function comment(id, comment){
         },
     });
 }
+
+function getItem(view){
+    $('#title').append(view[0][1]);
+    $('#contens').append(view[0][3]);
+}
