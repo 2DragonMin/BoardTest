@@ -51,11 +51,21 @@
     <main role="main">
         <div class="jumbotron">
             <div class="container">
+                <div>
+                    <form action="modify.php" method="GET">
+                        <button class="btn btn-basic" style="float: right;"><i class="fas fa-edit"></i>     Modify</button>
+                        <input type="hidden" value=<?php echo $id?> name="Num" />
+                    </form>
+                    <form action="delete.php" method="GET">
+                        <button class="btn btn-basic" id="btn-del" style="float: right;"><i class="fas fa-trash"></i>    Delete</button>
+                        <input type="hidden" value=<?php echo $id?> name="Num" />
+                    </form>
+                </div>
                 <table class="table table-striped">
                     <thead>
                         <tr align="center">
-                            <th>Title</th>
                             <th>Number</th>
+                            <th>Title</th>
                             <th>Time</th>
                             <th>File</th>
                         </tr>   
@@ -96,7 +106,7 @@
                 </form>
                 </table>
                 <?php if($rows['depth'] == 0){ ?>
-                    <form action="commentWrite.php" method="POST">
+                    <form action="commentWrite.php" method="POST" novalidate>
                         <table class="table table=stripe">
                             <thead>
                                 <tr><h5>Comment Board</h5>
@@ -115,8 +125,8 @@
                             </tbody>
                         </table>
                         <table>
-                            <button class="btn btn-secondary" type="submit" style="float: right;">글 올리기     <i class="fas fa-upload"></i></button>
-                            <input type="hidden" value=<?php echo $rows['id']?> name="grpNum" />
+                            <button class="btn btn-secondary" type="submit" style="float: right;">write Up     <i class="fas fa-upload"></i></button>
+                            <input type="hidden" value=<?php echo $id?> name="grpNum" />
                         </table>
                     </form>
                 <?php } ?>                
@@ -136,10 +146,7 @@
         <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
     </div>
 </footer>
-    <!--
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    -->
-    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-    
+    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+	<script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
     </body>
 </html>

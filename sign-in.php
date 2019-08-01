@@ -22,18 +22,18 @@
 	
 	<body class="text-center">
 		<div class="container">
-			<form method="POST" class="form-signup" action="signin_action.php">
+			<form id="signin" method="POST" class="form-signup" >
 				<img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
 				<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 				<input type="text" name="id" class="form-control" placeholder="ID" required autofocus>
 				<input type="password" name="pwd" class="form-control" placeholder="Password" required>
 				<div class="checkbox mb-3">
-					<label><input type="checkbox" name="idchkbox" value="idcheck"> Remember me</label>
+					<label><input type="checkbox" name="idchkbox"> Remember me</label>
 				</div>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="btn-signIn">Sign in</button>
 			</form>
 			<div class="form-signup">
-				<button class="btn btn-lg btn-primary btn-block" style="float: center; width:300px" onclick="location.href='/sign-up.html'">Sign up</button>
+				<button class="btn btn-lg btn-primary btn-block" style="float: center; width:300px" onclick="location.href='/sign-up.php'">Sign up</button>
 				<p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
 			</div>
 		</div>

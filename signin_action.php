@@ -1,41 +1,41 @@
 <?php
-ini_set("display_errors", "1");
+	require_once("db.cls.php");
+	//ini_set("display_errors", "1");
 	session_start();
 	
-	$connect = mysqli_connect("localhost", "ymlee", "qwe123", "db") or die("connect failed");
+	$dbcon = new CLS_DB();
+	$dbcon->connect();
 
 	$id = $_POST['id'];
 	$pwd = $_POST['pwd'];
+	$chk = $_POST['reChk'];
 
-	$query = "select * from account where id='$id'";
-    $result = $connect->query($query);
+	$query = "SELECT Id, Password FROM account WHERE Id='$id'";
+    $result = $dbcon->get($query);
 
-	if(mysqli_num_rows($result)==1){
-		$row = mysqli_fetch_assoc($result);
-		if($row['Password'] == $pwd){
+	$hash = $result[0][1];
+	$val = i;
+
+	if(count($result)==1){
+		if(password_verify($pwd, $hash)){
 			$_SESSION['uid'] = $id;
 			if(isset($_SESSION['uid'])){
-		?>	<script>
-				alert("Join success");
-				location.replace("index.php");
-			</script>
-	<?php		}		
+				$val = 's';
+				echo json_encode($val);
+			}		
 			else {
 				echo "seession fail";
 			}
 		}
 		else{
-?>		<script>
-			alert("check ID or Password 1 <?php echo "$id...$pwd..." ?>");
-			history.back();
-		</script>
-<?php		}
+			$val = 'p';
+			echo json_encode($val);
+		}
 	}
 	else {
-	?>	<script>
-			alert("check ID or Password 2.");
-			history.back();
-		</script>
-<?php
+		$val = 'i';
+		echo json_encode($val);
 	}
+
+	$dbcon->close();
 ?>

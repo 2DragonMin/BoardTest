@@ -39,6 +39,7 @@ class CLS_DB
 	if (($result = mysqli_query($this->connection, $query))) {
 	    $i = 0;
 	    while (($row = mysqli_fetch_array($result, MYSQLI_NUM))) {
+		$row['1'] = htmlspecialchars($row['1'], ENT-QUOTES, 'UTF-8');
 		$arr[$i] = $row;
 		$i++;
 	    }

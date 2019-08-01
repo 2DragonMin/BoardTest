@@ -24,3 +24,11 @@
     margin-left : 10px;
     text-align : center;
 }
+
+.left-box {
+    float: left;
+}
+
+.right-box {
+    float: right;
+}

@@ -12,11 +12,12 @@
     $tmpfile = $_FILES['file']['tmp_name'];
     if($tmpfile){
         $o_name = $_FILES['file']['name'];
-        $fileName = md5(iconv("UTF-8", "EUC-KR", $_FILES['file']['name']));
+        $fileName = md5(iconv("UTF-8", "EUC-KR", $_FILES['file']['name'])._.date('Y-m-d H:i:s'));
         $fileDir = "/var/webdata/".$fileName;
         
         move_uploaded_file($tmpfile, $fileDir);    
     }
+    $title = str_replace("'", "''", $title);
 
     $idx = "ALTER TABLE story AUTO_INCREMENT = 1";
     $idx_result = $dbcon->execute($idx);
@@ -41,5 +42,5 @@
         echo "FAIL";
     }    
 
-    mysqli_cloase($dbcon);
+    $dbcon->close();
 ?>

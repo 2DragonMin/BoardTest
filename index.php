@@ -14,15 +14,14 @@
         <title>Board example · Bootstrap</title>
         
         <link href="basic.css" rel="stylesheet">
-	    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
 	    <!-- Bootstrap core CSS -->
 	    <link href="/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<!--
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        -->
-        <script src="https://kit.fontawesome.com/0b4465d718.js"></script>       
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="/boardTest.js"></script>
+		<!-- FontAwesome CSS -->
+		<link href="/css/all.css" rel="stylesheet">
+		<!-- jquery js -->
+		<script src="/jquery-3.4.1.min.js"></script>
+		<!--board js -->
+		<script src="/boardTest.js"></script>
     </head>
     <body>
     <header>
@@ -30,9 +29,8 @@
 	        <div class="container">
 		        <div class="row">
 		            <div class="col-sm-8 col-md-7 py-4">
-			            <h4 class="text-white">About</h4>
-			            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-		            </div>
+						<h4 class="text-white">About</h4>
+					</div>
 		            <div class="col-sm-4 offset-md-1 py-4">
 			            <h4 class="text-white">Contact</h4>
 			            <ul class="list-unstyled">
@@ -40,11 +38,7 @@
                     if(isset($_SESSION['uid'])){ ?>
 			            <li><a href="logout.php" class="text-white">logout</a></li>
                         <li><a class="text-white">Welcome <?php echo $_SESSION['uid']?></a></li>
-		            <?php } else { ?>
-				        <li><a href="sign-in.html" class="text-white">Sign in</a></li>
-				        <li><a href="sign-up.html" class="text-white">Sign up</a></li>
-		            <?php } ?>
-			            </ul>
+					<?php } ?>
 		            </div>
 		        </div>
 	        </div>
@@ -64,48 +58,55 @@
     <main role="main">
     <?php 
     if(isset($_SESSION['uid'])){ ?>
-        <section class="jumbotron text-center">
-	        <div class="container">
-	            <h1 class="jumbotron-heading">Board example</h1>
-	            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-	            <p>
-                    <a href="/index.php" class="btn btn-primary my-2">Main call to action</a>
-		            <a href="/write.php" class="btn btn-secondary my-2"><i class="fas fa-edit"></i></a>
-	            </p>
-	        </div>
-        </section>
         <div class="jumbotron">
 	        <div class="container">
-	            <form id="title" method="get">
-	                <input type="text" name="title" placeholder="input title."/>
-	                <button class="btn btn-secondary" type="button" id="btn-sch">
-                    <i class="fas fa-search"></i>
-                </button>
-                </form>
-                <!-- <div id="list"></div> --> 
-                <table class="table table-striped">
-	                <thead>
-	                    <tr align = "center">
-		                <th>Number</th>
-		                <th>Title</th>
-		                <th>Time</th>
-	                    </tr>
-	                </thead>
-	                <tbody id="list">
-                    </tbody>
-                </table>
+				<div class='left-box'>
+	            	<form id="title" method="get">
+	                	<input type="text" name="title" placeholder="input title."/>
+	                	<button class="btn btn-secondary" type="button" id="btn-sch">
+                    	<i class="fas fa-search"></i></button>
+					</form>
+				</div>
+				<div class='right-box'>
+					<select id="lc" name="listcount" onchange="changeListcount()">
+						<option value="ten">10</option>
+						<option value="fif">15</option>
+						<option value="twen">20</option>
+					</select>
+				</div>
+				<div>
+                	<table class="table table-striped">
+	               		<thead>
+	                 		<tr align="center">
+		                	<th>Number</th>
+		                	<th>Title</th>
+							<th>Time</th>
+							<th>Views</th>
+	                    	</tr>
+	                	</thead>
+	                	<tbody id="list"> </tbody>
+					</table>
+				</div>
+				<div>
+					<!--
+					<button class="btn btn-basic" style="float: right;"><i class="fas fa-edit"></i>     Modify</button>
+					<button class="btn btn-basic" id="btn-del" style="float: right;"><i class="fas fa-trash"></i>    Delete</button>
+					<a href="/delete.php" class="btn btn-primary my-2" style="float: left;">Delete		<i class="fas fa-trash"></i></a>
+					-->
+				</div>
                 <div id="page_num">
-                    <ul class="list-inline" id="paging"> 
-                    
-                    </ul>
-                </div>
+					<ul class="list-inline" id="paging"> </ul>
+				</div>
+				<div>
+					<a href="/index.php" class="btn btn-primary my-2" style="float: right;">Main call to action</a>
+					<a href="/write.php" class="btn btn-secondary my-2" style="float: right;">Write		<i class="fas fa-edit"></i></a>
+				</div>
             </div>
         </div>
         <?php }  else { ?>
         <section class="jumbotron text-center">
 	        <div class="container">
-	            <h1 class="jumbotron-heading">Board example</h1>
-	            <p class="lead text-muted">please sign in</p>
+				<?php echo ("<script> location.href='/sign-in.php';</script>"); ?>
 	        </div>
         </section>
     <?php } ?>
@@ -115,14 +116,9 @@
             <p class="float-right">
             <a href="#">Back to top</a>
             </p>
-            <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-            <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="https://getbootstrap.com/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
         </div>
     </footer>
-    <!--
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    -->
-    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-    
+	<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+	<script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
     </body>
 </html>

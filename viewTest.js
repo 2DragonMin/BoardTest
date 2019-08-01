@@ -51,7 +51,6 @@ function comment(id, comment){
             'comment' : comment
         },
         success : function(data){
-            console.log(id);
             view(id);
         },
     });

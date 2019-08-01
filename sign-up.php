@@ -23,14 +23,14 @@
   </head>
   
   <body class="text-center">
-    <form method="POST" action="signup_action.php" class="form-signup">
+    <form method="POST" id="signup" class="form-signup">
       <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign Up</h1>
       <input type="text" name="id" class="form-control" placeholder="ID" required autofocus>
       <button class="btn btn-secondary" type="button" id="btn-IDchk" style="width:300px">ID_Check<i class="fas fa-check" style="float: right;"></i></button>
-      <input type="password" name="pwd" class="form-control" placeholder="Password" required>
-      <input type="password" name="confirm"class="form-control" placeholder="password Again" required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+      <input type="password" name="pwd1" class="form-control" placeholder="Password" required>
+      <input type="password" name="pwd2"class="form-control" placeholder="password Again" required>
+      <button class="btn btn-lg btn-primary btn-block" type="button" id="btn-signUp">Sign up</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
       <footer>
         <script src="/dist/js/bootstrap.min.js"></script>

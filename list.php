@@ -8,6 +8,7 @@
     }
 
     $search = $_GET['search']; 
+	$listNum = $_GET['listNum'];
 
 	require_once("db.cls.php");
 	
@@ -15,32 +16,33 @@
     $dbcon->connect();
     
     if($search != null){
-        $query_list = "select id, title, reg_time, depth, grpNum from story where title like '%$search%' order by id, asc, grpNum desc";
+        $query_list = "select id, title, reg_time, depth, grpNum, views from story where title like '%$search%' order by id, asc, grpNum desc";
     } else {
-        $query_list = "select id, title, reg_time, depth, grpNum from story order by id desc, grpNum desc, id asc";
+        $query_list = "select id, title, reg_time, depth, grpNum, views from story order by id desc, grpNum desc, id asc";
     }
 	$boardData = $dbcon->get($query_list);
     $count = count($boardData);
-    
-	$list = 10;
 
-    $start_num = ($page-1) * $list;
+    $start_num = ($page-1) * $listNum;
     
     if($search != null){
-        $query_page = "select id, title, reg_time, depth, grpNum from story where title like '%$search%' order by grpNum desc, id asc limit $start_num, $list";    
+        $query_page = "select id, title, reg_time, depth, grpNum, views from story where title like '%$search%' order by grpNum desc, id asc limit $start_num, $listNum";    
     } else {
-        $query_page = "select id, title, reg_time, depth, grpNum from story order by grpNum desc, id asc limit $start_num, $list";
+        $query_page = "select id, title, reg_time, depth, grpNum, views from story order by grpNum desc, id asc limit $start_num, $listNum";
     }
     $result_page = $dbcon->get($query_page);
-    
-	$boardList = array(
+
+    $boardList = array(
+        'listNum' => $listNum,
         'page' => $page,
         'count' => $count,
         'ptotal' => $page_total,
-        'boardList' => $list
+        'boardList' => $listNum
     );
 
     $boardList['boardData'] = $result_page;
 
     echo json_encode($boardList);
+
+    $dbcon->close();
 ?>

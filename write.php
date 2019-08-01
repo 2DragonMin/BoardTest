@@ -13,13 +13,14 @@
     <!-- Bootstrap core CSS -->
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <script src="https://kit.fontawesome.com/ef773e0dc4.js"></script>
-    <!-- tinymce Editer -->
-    <!--
-    <script src="https://cdn.tiny.cloud/1/771m4nwr4ni1tgt5qrbimaryvoct03cen4lyys18nmexsy1c/tinymce/5/tinymce.min.js"></script>
-    -->
+    <!-- FontAwesome CSS -->
+    <link href="/css/all.css" rel="stylesheet">
+    <!-- tinyMce js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.11/tinymce.min.js"></script>
+    <!-- jquery js -->
+		<script src="/jquery-3.4.1.min.js"></script>
+    <!--board js -->
+    <script src="/boardTest.js"></script>
     <script>
 	    tinyMCE.init({
           selector:'#mce',
@@ -56,17 +57,17 @@
       <div class="container">
         <table class="table table-striped">
           <thead> <tr><th><h3>TITLE</h3></th></tr> </thead>
-          <tbody> <tr><td><input type="text" class="form-control" name="title" placeholder="Input title" escapeXml="false" required></td></tr> </tbody>
+          <tbody> <tr><td><input type="text" class="form-control" name="title" placeholder="Input title" required></td></tr> </tbody>
         </table>
         <table class="table table-striped">
           <thead> <tr><th><h3>CONTENTS</h3></th></tr> </thead>
           <tbody> <tr><td><textarea name="contents" id="mce" rows="15" required></textarea></td></tr> </tbody>
         </table>
         <table>
-          <button class="btn btn-secondary" type="submit" style="float: right;">글 올리기 <i class="fas fa-pen-alt"></i></button>
+          <button class="btn btn-secondary" type="summit" id="btn-write" style="float: right;">write Up <i class="fas fa-pen-alt"></i></button>
           <div>
             <input type="file" class="input-file-hidden" name="file" onchange="readURL(this)"/>
-            <img id="blah" src="#" alt="your image" />
+            <img id="blah" src="#" alt="your image"/>
           </div>
         </table>
       </div>
@@ -82,8 +83,9 @@
     <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
   </div>
 </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="../docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="../dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script></body>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+	<script src="/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    </body>
 </html>
 
 

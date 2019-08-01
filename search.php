@@ -54,4 +54,6 @@
       $boardList['boardData'] = $result_page;
       
       echo json_encode($boardList);
+
+      $dbcon->close();
 ?>

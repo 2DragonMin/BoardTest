@@ -34,4 +34,6 @@
     else{
         echo $cid."....".$comment;
     }
+
+    $dbcon->close();
 ?>

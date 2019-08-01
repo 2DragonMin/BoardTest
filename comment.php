@@ -14,16 +14,5 @@
 
     echo json_encode($result);
 
-    /*
-    if($result){ ?>
-        <script>
-            //alert("input comment success.");
-            history.back();
-        </script>
-    <?php 
-    }
-    else{
-        echo $cid."....".$comment;
-    }
-    */
+    $dbcon->close();
 ?>
